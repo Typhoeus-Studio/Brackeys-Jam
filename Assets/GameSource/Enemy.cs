@@ -7,7 +7,8 @@ public class Enemy : MonoBehaviour
     public int health;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AgentPointController pointController;
-    
+    public Guid id = new Guid();
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -18,16 +19,16 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (agent.remainingDistance<0.1f)
+        if (agent.remainingDistance < 0.1f)
         {
-            Patrol();
+            GetNew();
         }
     }
 
 
-    void Patrol()
+    void GetNew()
     {
-        
+        pointController.GetNewTarget(id);
     }
 
     private void Die()
