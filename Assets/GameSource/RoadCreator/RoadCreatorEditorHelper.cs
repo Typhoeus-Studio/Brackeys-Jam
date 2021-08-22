@@ -15,12 +15,11 @@ public class RoadCreatorEditorHelper : Editor
     void OnSceneGUI()
     {
         Event e = Event.current;
-        Debug.Log(e.keyCode);
         if (e.isKey)
         {
-            if (e.keyCode == KeyCode.U)
+            if (e.keyCode == KeyCode.K)
             {
-                RoadCreatorEditor.GetObject();
+                RoadMono.SetObjectToTheGround();
             }
 
             if (e.keyCode == KeyCode.J)

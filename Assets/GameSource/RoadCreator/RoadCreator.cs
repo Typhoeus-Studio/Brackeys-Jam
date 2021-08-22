@@ -8,7 +8,7 @@ public static class RoadCreator
     {
         if (RayToGround(out var hit, destObj))
         {
-            destObj.transform.position = hit.transform.position + offset + CalculateMeshHeight(meshRenderer);
+            destObj.transform.position = hit.point + offset;
         }
     }
 

@@ -14,7 +14,7 @@ public class RoadMono : MonoBehaviour
         if (GetSelectedObject(out var ts))
         {
             selectedObject = ts;
-            SetGround(ts);
+            SetGround(selectedObject);
         }
     }
 
@@ -49,6 +49,5 @@ public class RoadMono : MonoBehaviour
 
     public static void InstantiateSelectedObject()
     {
-        
     }
 }
