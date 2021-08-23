@@ -45,12 +45,14 @@ public class Bullet : MonoBehaviour
             Dispose();
     }
 
-    private void OnTriggerEnter(Collider other)
+  
+
+    private void OnCollisionEnter(Collision other)
     {
         if (other.HasComponent<Enemy>())
         {
             //Bullet splash anim
-            other.GetComponent<Enemy>().TakeDamage(damage);
+            other.gameObject.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
 }

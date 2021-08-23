@@ -9,6 +9,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private AgentPointController pointController;
     public Guid id = new Guid();
 
+    private void Start()
+    {
+        GetNew();
+    }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -28,7 +33,8 @@ public class Enemy : MonoBehaviour
 
     void GetNew()
     {
-        pointController.GetNewTarget(id);
+        var obj=pointController.GetNewTarget(id);
+        agent.SetDestination(obj.point.position);
     }
 
     private void Die()
