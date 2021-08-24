@@ -24,8 +24,21 @@ public class RoadCreatorEditorHelper : Editor
 
             if (e.keyCode == KeyCode.J)
             {
-                RoadMono.onGenerateMode = !RoadMono.onGenerateMode;
+                RoadMono.onGenerateMode = true;
+                Debug.Log("ON GENERATE MODE =" + RoadMono.onGenerateMode);
                 RoadMono.SetToGenerateMod();
+            }
+
+            if (e.keyCode == KeyCode.L)
+            {
+                RoadMono.onGenerateMode = false;
+            }
+
+            if (e.keyCode == KeyCode.M)
+            {
+                if (!RoadMono.onGenerateMode) return;
+                Debug.Log("Generating");
+                RoadMono.Generate(e.mousePosition);
             }
         }
 
@@ -36,7 +49,6 @@ public class RoadCreatorEditorHelper : Editor
             {
                 if (e.keyCode == KeyCode.P)
                 {
-                    
                 }
             }
         }

@@ -7,11 +7,30 @@ public class BulletController : MonoBehaviour
     [SerializeField] private Transform gunPos;
     [SerializeField] private float bulletForce;
 
+    [SerializeField] private float cooldown;
+
+    private float cdTimer;
+    private bool canShoot;
+
     void Update()
     {
         if (Input.GetButton("Fire1"))
         {
-            Fire();
+            if (canShoot)
+            {
+                Fire();
+                cdTimer = cooldown;
+                canShoot = false;
+            }
+        }
+
+        if (!canShoot)
+        {
+            cdTimer -= Time.deltaTime;
+            if (cdTimer <= 0)
+            {
+                canShoot = true;
+            }
         }
     }
 

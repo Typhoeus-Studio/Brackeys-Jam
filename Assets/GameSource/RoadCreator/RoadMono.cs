@@ -44,10 +44,27 @@ public class RoadMono : MonoBehaviour
         if (GetSelectedObject(out var ts))
         {
             selectedObject = ts;
+            Debug.Log(ts.name);
         }
     }
 
     public static void InstantiateSelectedObject()
     {
+    }
+
+    public static void Generate(Vector3 input)
+    {
+        var g = PrefabUtility.InstantiatePrefab(FindInProject()) as GameObject;
+        g.transform.position = Camera.main.ScreenToWorldPoint(input);
+    }
+
+    private static GameObject FindInProject()
+    {
+        //AssetDatabase.TryGetGUIDAndLocalFileIdentifier(instanceID, out string guid, out long localId);
+        string[] strs = AssetDatabase.FindAssets(selectedObject.name);
+        Debug.Log(strs[0]);
+        string path = AssetDatabase.GUIDToAssetPath(strs[0]);
+        var obj = AssetDatabase.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
+        return obj;
     }
 }
