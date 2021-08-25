@@ -1,22 +1,31 @@
 ﻿using System;
+using Pool;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    private bool isAvailable;
     public int health;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private AgentPointController pointController;
+    [SerializeField] private GameObject model;
+    [SerializeField] private GameObject ragdoll;
+
+
     public Guid id = new Guid();
 
     private void Start()
     {
+        isAvailable = true;
         GetNew();
     }
 
     public void TakeDamage(int damage)
     {
+        if (!isAvailable) return;
         health -= damage;
+        TWEAKS.PlayParticle(CONSTANTS.P_HIT, transform.position);
         //Particles,Anims
         if (health <= 0)
             Die();
@@ -24,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (!isAvailable) return;
         if (agent.remainingDistance < 0.1f)
         {
             GetNew();
@@ -33,12 +43,17 @@ public class Enemy : MonoBehaviour
 
     void GetNew()
     {
-        var obj=pointController.GetNewTarget(id);
+        var obj = pointController.GetNewTarget(id);
         agent.SetDestination(obj.point.position);
     }
 
     private void Die()
     {
+        isAvailable = false;
+        agent.isStopped = true;
+        TWEAKS.PlayParticle(CONSTANTS.P_DIE, transform.position);
+        model.SetActive(false);
+        ragdoll.SetActive(true);
         //Particles etc.
     }
 }

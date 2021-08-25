@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float bulletForce;
 
     [SerializeField] private float cooldown;
+    [SerializeField] private Animator animator;
 
     private float cdTimer;
     private bool canShoot;
@@ -37,7 +38,11 @@ public class BulletController : MonoBehaviour
     private void Fire()
     {
         Bullet bullet = BulletPool.Instance.GetFromPool(0);
+        TWEAKS.PlayParticle(CONSTANTS.P_BULLET_EXP, gunPos.position + gunPos.forward);
+        bullet.transform.rotation = transform.rotation;
         bullet.Initialize(gunPos, bulletForce);
+        
+        animator.Play("recoil");
         //Bullet initialize anim.
         //Shoot particle
         //Shoot anim
