@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,19 @@ public class BulletController : MonoBehaviour
     private float cdTimer;
     private bool canShoot;
 
-    void Update()
-    {
-        if (Input.GetButton("Fire1"))
-        {
-            if (canShoot)
-            {
-                Fire();
-                cdTimer = cooldown;
-                canShoot = false;
-            }
-        }
 
+    public void ShootDirect()
+    {
+        if (canShoot)
+        {
+            Fire();
+            cdTimer = cooldown;
+            canShoot = false;
+        }
+    }
+
+    public void CooldownCheck()
+    {
         if (!canShoot)
         {
             cdTimer -= Time.deltaTime;
@@ -41,7 +43,7 @@ public class BulletController : MonoBehaviour
         TWEAKS.PlayParticle(CONSTANTS.P_BULLET_EXP, gunPos.position + gunPos.forward);
         bullet.transform.rotation = transform.rotation;
         bullet.Initialize(gunPos, bulletForce);
-        
+
         animator.Play("recoil");
         //Bullet initialize anim.
         //Shoot particle

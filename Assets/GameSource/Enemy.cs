@@ -3,8 +3,13 @@ using Pool;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
 public class Enemy : MonoBehaviour
 {
+    
+    
+    
     private bool isAvailable;
     public int health;
     [SerializeField] private NavMeshAgent agent;
@@ -12,11 +17,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject model;
     [SerializeField] private GameObject ragdoll;
 
+    [SerializeField] private Player player;
+
+    [SerializeField] private EnemyBulletController bulletController;
 
     public Guid id = new Guid();
 
-    private void Start()
+    private void Initialize(Player play)
     {
+        player = play;
         isAvailable = true;
         GetNew();
     }
@@ -38,6 +47,8 @@ public class Enemy : MonoBehaviour
         {
             GetNew();
         }
+
+        LookForPlayer();
     }
 
 
@@ -56,4 +67,16 @@ public class Enemy : MonoBehaviour
         ragdoll.SetActive(true);
         //Particles etc.
     }
+
+
+    void LookForPlayer()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < 15)
+        {
+            transform.LookAt(player.transform.position);
+            bulletController.ShootDirect();
+            bulletController.CooldownCheck();
+        }
+    }
 }
+
