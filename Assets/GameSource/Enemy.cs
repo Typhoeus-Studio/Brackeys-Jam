@@ -4,12 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-
 public class Enemy : MonoBehaviour
 {
-    
-    
-    
     private bool isAvailable;
     public int health;
     [SerializeField] private NavMeshAgent agent;
@@ -23,7 +19,10 @@ public class Enemy : MonoBehaviour
 
     public Guid id = new Guid();
 
-    private void Initialize(Player play)
+    [SerializeField] private FieldOfViewEnemy fieldOfViewEnemy;
+
+
+    public void Initialize(Player play)
     {
         player = play;
         isAvailable = true;
@@ -43,12 +42,17 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (!isAvailable) return;
-        if (agent.remainingDistance < 0.1f)
+        if (fieldOfViewEnemy.canSeePlayer)
         {
-            GetNew();
+            transform.LookAt(player.transform.position);
+            bulletController.ShootDirect();
+            bulletController.CooldownCheck();
         }
-
-        LookForPlayer();
+        else
+        {
+            if (agent.remainingDistance < 0.1f)
+                GetNew();
+        }
     }
 
 
@@ -67,16 +71,4 @@ public class Enemy : MonoBehaviour
         ragdoll.SetActive(true);
         //Particles etc.
     }
-
-
-    void LookForPlayer()
-    {
-        if (Vector3.Distance(transform.position, player.transform.position) < 15)
-        {
-            transform.LookAt(player.transform.position);
-            bulletController.ShootDirect();
-            bulletController.CooldownCheck();
-        }
-    }
 }
-
