@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     {
         player = play;
         isAvailable = true;
-    //    GetNew();
+        GetNew();
     }
 
     public void TakeDamage(int damage)
@@ -42,17 +42,23 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (!isAvailable) return;
-        
+
         if (fieldOfViewEnemy.canSeePlayer)
         {
-            transform.LookAt(player.transform.position);
+            if (!agent.isStopped)
+                agent.isStopped = true;
+            Vector3 dir = player.transform.position - transform.position;
+            dir.y = 0;
+            transform.rotation = Quaternion.LookRotation(dir);
             bulletController.ShootDirect();
             bulletController.CooldownCheck();
         }
         else
         {
-           // if (agent.remainingDistance < 0.1f)
-              //  GetNew();
+            if (agent.isStopped)
+                agent.isStopped = false;
+            if (agent.remainingDistance < 0.1f)
+                GetNew();
         }
     }
 
