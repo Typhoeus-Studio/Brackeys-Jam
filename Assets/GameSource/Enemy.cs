@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     {
         player = play;
         isAvailable = true;
-        GetNew();
+    //    GetNew();
     }
 
     public void TakeDamage(int damage)
@@ -42,6 +42,7 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (!isAvailable) return;
+        
         if (fieldOfViewEnemy.canSeePlayer)
         {
             transform.LookAt(player.transform.position);
@@ -50,8 +51,8 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (agent.remainingDistance < 0.1f)
-                GetNew();
+           // if (agent.remainingDistance < 0.1f)
+              //  GetNew();
         }
     }
 

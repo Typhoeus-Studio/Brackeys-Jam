@@ -24,20 +24,23 @@ public class FieldOfViewEnemy : MonoBehaviour
             Vector3 directionToTarget = (target.position - transform.position).normalized;
             CheckAngle(transform.forward, directionToTarget);
         }
+        else
+        {
+            canSeePlayer = false;
+        }
     }
 
     void CheckAngle(Vector3 from, Vector3 to)
     {
         if (Vector3.Angle(from, to) < angle / 2f)
         {
-            if (CheckObstacle(to))
+            if (Physics.Raycast(transform.position, to, Mathf.Infinity, obstructionMask))
             {
-                Debug.Log("Player is in here");
-                canSeePlayer = true;
+                canSeePlayer = false;
             }
             else
             {
-                canSeePlayer = false;
+                canSeePlayer = true;
             }
         }
         else
@@ -45,15 +48,5 @@ public class FieldOfViewEnemy : MonoBehaviour
             Debug.Log("Player is not in the vision");
             canSeePlayer = false;
         }
-    }
-
-    bool CheckObstacle(Vector3 dir)
-    {
-        if (Physics.Raycast(transform.position, dir, Mathf.Infinity, obstructionMask))
-        {
-            return false;
-        }
-
-        return true;
     }
 }
