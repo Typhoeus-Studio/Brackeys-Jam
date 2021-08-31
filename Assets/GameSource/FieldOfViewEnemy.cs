@@ -8,7 +8,7 @@ public class FieldOfViewEnemy : MonoBehaviour
     public float angle;
     public bool canSeePlayer;
 
-
+    public Transform player;
     private void Update()
     {
         FieldOfViewCheck();
@@ -21,6 +21,7 @@ public class FieldOfViewEnemy : MonoBehaviour
         if (rangeChecks.Length != 0)
         {
             Transform target = rangeChecks[0].transform;
+            player = target;
             Vector3 directionToTarget = (target.position - transform.position).normalized;
             CheckAngle(transform.forward, directionToTarget);
         }

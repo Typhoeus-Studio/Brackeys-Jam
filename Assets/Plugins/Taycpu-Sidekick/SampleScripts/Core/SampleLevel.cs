@@ -1,7 +1,7 @@
 ﻿using HyperTemplate;
 using UnityEngine;
 
-public class SampleLevel :Level
+public class SampleLevel : Level
 {
     public Transform startPos;
     public Transform finishCamPos;

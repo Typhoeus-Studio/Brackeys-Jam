@@ -9,6 +9,7 @@ namespace HyperTemplate.HyperMono.HyperCore
             get => transform.position;
             set => transform.position = value;
         }
+
         public abstract void FindOwnReferences();
     }
 }

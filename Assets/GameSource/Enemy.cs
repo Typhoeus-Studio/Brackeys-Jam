@@ -13,7 +13,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject model;
     [SerializeField] private GameObject ragdoll;
 
-    [SerializeField] private Player player;
 
     [SerializeField] private EnemyBulletController bulletController;
 
@@ -22,9 +21,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private FieldOfViewEnemy fieldOfViewEnemy;
 
 
-    public void Initialize(Player play)
+    public void Initialize()
     {
-        player = play;
+        transform.position = pointController.GetNewTarget(id).point.position;
         isAvailable = true;
         GetNew();
     }
@@ -47,7 +46,7 @@ public class Enemy : MonoBehaviour
         {
             if (!agent.isStopped)
                 agent.isStopped = true;
-            Vector3 dir = player.transform.position - transform.position;
+            Vector3 dir = fieldOfViewEnemy.player.position - transform.position;
             dir.y = 0;
             transform.rotation = Quaternion.LookRotation(dir);
             bulletController.ShootDirect();

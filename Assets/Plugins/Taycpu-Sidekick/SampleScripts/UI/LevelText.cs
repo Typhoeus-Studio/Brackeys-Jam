@@ -11,11 +11,10 @@ public class LevelText : TextUIObject
     {
         levelVar.RegisterListener(this);
         RaiseEvent();
-        
     }
 
     protected override string DestText()
     {
-        return "LEVEL "+(levelVar.GetLevel() + 1).ToString();
+        return "LEVEL " + (levelVar.GetLevel() + 1).ToString();
     }
 }

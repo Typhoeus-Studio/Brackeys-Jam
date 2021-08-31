@@ -2,5 +2,4 @@
 
 public class SampleLevelController : LevelController
 {
-    
 }

@@ -8,7 +8,6 @@ public class PlayerWallet : UIEventRaiser
     public IntVariable dumpCount;
 
 
-
     public void AddPump()
     {
         pumpCount.AddCount(1);

@@ -14,7 +14,7 @@ public class GameUIPage : HyperUIPage, IListener
     {
         base.Initialize();
     }
-    
+
 
     public void AddCoin(string coin)
     {

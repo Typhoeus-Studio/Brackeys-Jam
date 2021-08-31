@@ -20,8 +20,5 @@ namespace PositionSetter
 
             return (i + 5f * nearest / 10f) / nearest * nearest;
         }
-
-
-
     }
 }

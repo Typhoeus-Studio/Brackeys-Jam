@@ -13,7 +13,7 @@ public class SampleDumpInteractable : HyperInteractable
     {
         if (isInteracted) return;
         base.Interact();
-        
+
         gameObject.SetActive(false);
     }
 }

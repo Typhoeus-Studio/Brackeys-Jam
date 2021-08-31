@@ -5,7 +5,6 @@ using HyperTemplate.HyperMono.HyperGameObject;
 using UnityEngine;
 
 
-
 public class SamplePlayer : HyperPlayer
 {
     [SerializeField] private TouchHelper touchHelper;
